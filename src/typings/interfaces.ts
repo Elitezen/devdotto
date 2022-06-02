@@ -1,4 +1,4 @@
-import { ArticleState, NumberResolvable } from "./types";
+import { ArticleState, MiniUser, NumberResolvable } from "./types";
 
 export interface BaseProfile {
   name: string;
@@ -30,14 +30,11 @@ export interface Organization extends BaseProfile {
   slug: string;
 }
 
-export interface PageScrollerOptions {
-  articlesPerPage: NumberResolvable;
-}
-
 export interface FinalPageFetchOptions {
+  per_page: number;
   page: NumberResolvable;
   tag: string;
-  // tags: string[] | string;
+  tags: string[] | string;
   tags_exclude: string[] | string;
   username: string;
   state: ArticleState;
@@ -46,9 +43,10 @@ export interface FinalPageFetchOptions {
 }
 
 export interface PageFetchOptions {
+  perPage: number;
   page: NumberResolvable;
   tag: string;
-  // tags: string[] | string;
+  tags: string[] | string;
   tagsExclude: string[] | string;
   username: string;
   state: ArticleState;
@@ -61,6 +59,8 @@ export interface RawArticle {
   id: number;
   title: string;
   description: string;
+  body_html: string | null;
+  body_markdown: string | null;
   readable_publish_date: string;
   slug: string;
   path: string;
@@ -91,6 +91,8 @@ export interface Article {
   id: number;
   title: string;
   description: string;
+  bodyHtml: string | null;
+  bodyMarkdown: string | null;
   readablePublishDate: string;
   slug: string;
   path: string;
@@ -114,6 +116,30 @@ export interface Article {
   user: User;
   organization: Organization | null;
   flareTag: FlareTag;
+}
+
+export interface RawVideoArticle {
+  type_of: string;
+  id: number;
+  path: string;
+  cloudinary_video_url: string;
+  title: string;
+  user_id: number;
+  video_duration_in_minutes: number;
+  video_source_url: string;
+  user: MiniUser;
+}
+
+export interface VideoArticle {
+  typeOf: string;
+  id: number;
+  path: string;
+  cloudinaryVideoUrl: string;
+  title: string;
+  userId: number;
+  videoDurationInMinutes: number;
+  videoSourceUrl: string;
+  user: MiniUser;
 }
 
 export interface RawUser extends RawBaseProfile {

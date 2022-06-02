@@ -1,4 +1,7 @@
-import DevToClient from "./src/classes/DevToClient";
+import fetchArticle from './src/functions/fetchArticle';
+import fetchPage from './src/functions/fetchPage';
+import fetchPageLatest from './src/functions/fetchPageLatest';
+import fetchVideoArticles from './src/functions/fetchVideoArticles';
 import _camelCaseConvert from "./src/functions/_camelCaseConvert";
 import _request from "./src/functions/_request";
 
@@ -12,23 +15,27 @@ import {
   Organization, 
   FlareTag, 
   FinalPageFetchOptions, 
-  PageFetchOptions, 
-  PageScrollerOptions, 
+  PageFetchOptions,
   User 
 } from './src/typings/interfaces';
 
 import { 
   ArticleState, 
+  BasePageOptions,
   NumberResolvable, 
   RawPage, 
   Page 
 } from './src/typings/types'
 
 export {
-  DevToClient,
+  fetchArticle,
+  fetchPage,
+  fetchPageLatest,
+  fetchVideoArticles,
   _camelCaseConvert,
   _request,
   BaseProfile, 
+  BasePageOptions,
   RawArticle, 
   RawBaseProfile, 
   RawFlareTag, 
@@ -37,8 +44,7 @@ export {
   Organization, 
   FlareTag, 
   FinalPageFetchOptions,
-  PageFetchOptions, 
-  PageScrollerOptions,    
+  PageFetchOptions,   
   User,
   ArticleState,
   NumberResolvable, 
