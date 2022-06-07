@@ -7,192 +7,179 @@ Consider contributing or opening issues: https://github.com/Elitezen/devdotto
 
 # Changelog (0.2.0)
 
-## 0.2.0
-Removed Client, created the following functions:
+# 0.2.1
+Refactor and renaming of functions and typings, created client class for functions
+that require authorization. Added minimal JSDocs. Switched from node-fetch to the built-in fetch API (Node 18.3.0)
 
-- fetchArticle()
-- fetchPage()
-- fetchPageLatest()
-- fetchVideoArticles()
-
-Added and fixed typings, including Video Article interfaces.
-
+The current functions are now as follows:
+- getArticleById()
+- getArticleByPath()
+- getArticles()
+- getLatestArticles()
+- DevToClient
+  - .authorize()
+  - .getMyArticles()
 ---
 
-Requires Node 16 or higher.
-
-Functions so far:
-
-- fetchArticle()
-- fetchPage()
-- fetchPageLatest()
-- fetchVideoArticles()
+Requires Latest version of NodeJS
 
 ## Typings Dump
 
 ### Interfaces
 ```ts
-interface BaseProfile {
-  name: string;
-  username: string;
-  profileImage: string;
-  profileImage90: string;
-}
-
-interface RawBaseProfile {
-  name: string;
-  username: string;
-  profile_image: string;
-  profile_image_90: string;
-}
-
-interface RawFlareTag {
-  name: string;
-  bg_color_hex: string;
-  text_color_hex: string;
-}
-
-interface FlareTag {
-  name: string;
-  bgColorHex: string;
-  textColorHex: string;
-}
-
-interface Organization extends BaseProfile {
-  slug: string;
-}
-
-interface FinalPageFetchOptions {
-  per_page: number;
+interface BasePageFetchOptions {
   page: NumberResolvable;
-  tag: string;
-  tags: string[] | string;
-  tags_exclude: string[] | string;
+  tag: Tags;
+  tags: Tags[];
   username: string;
   state: ArticleState;
-  top: number;
-  collection_id: NumberResolvable;
+  top: NumberResolvable;
 }
 
-interface PageFetchOptions {
-  perPage: number;
-  page: NumberResolvable;
-  tag: string;
-  tags: string[] | string;
-  tagsExclude: string[] | string;
-  username: string;
-  state: ArticleState;
-  top: number;
+interface DevToErrorResponse {
+  error: string;
+  status: number;
+}
+
+interface PageFetchOptions extends BasePageFetchOptions {
+  perPage: NumberResolvable;
+  tagsExclude: Tags[];
   collectionId: NumberResolvable;
 }
 
-interface RawArticle {
-  type_of: string;
-  id: number;
-  title: string;
-  description: string;
-  body_html: string | null;
-  body_markdown: string | null;
-  readable_publish_date: string;
-  slug: string;
-  path: string;
-  url: string;
-  comments_count: number;
-  public_reactions_count: number;
-  collection_id: number | null;
-  published_timestamp: string;
-  positive_reactions_count: number;
-  cover_image: string | null;
-  social_image: string;
-  canonical_url: string;
-  created_at: string;
-  edited_at: string | null;
-  crossposted_at: string | null;
-  published_at: string;
-  last_comment_at: string | null;
-  reading_time_minutes: number;
-  tag_list: string[];
-  tags: string;
-  user: RawUser;
-  organization: Organization | null;
-  flare_tag: RawFlareTag;
+interface FinalPageFetchOptions extends BasePageFetchOptions {
+  per_page: number;
+  tags_exclude: string;
+  collection_id: number;
 }
 
-interface Article {
-  typeOf: string;
+interface BaseArticle {
   id: number;
-  title: string;
+  title: number;
   description: string;
-  bodyHtml: string | null;
-  bodyMarkdown: string | null;
-  readablePublishDate: string;
+  tags: Tags[];
   slug: string;
   path: string;
   url: string;
-  commentsCount: number;
-  publicReactionsCount: number;
-  collectionId: number | null;
-  publishedTimestamp: string;
-  positiveReactionsCount: number;
+}
+
+interface Article extends BaseArticle {
+  typeOf: TypeOfArticle;
   coverImage: string | null;
+  readablePublishDate: string;
   socialImage: string;
+  tagList: string;
   canonicalUrl: string;
+  commentsCount: number;
+  positiveReactionsCount: number;
+  publicReactionsCount: number;
   createdAt: string;
   editedAt: string | null;
   crosspostedAt: string | null;
   publishedAt: string;
-  lastCommentAt: string | null;
+  lastCommentAt: string;
+  publishedTimestamp: string;
+  bodyHtml?: string;
+  bodyMarkdown?: string;
   readingTimeMinutes: number;
-  tagList: string[];
-  tags: string;
   user: User;
-  organization: Organization | null;
+  organization: Organization;
   flareTag: FlareTag;
 }
 
-interface RawVideoArticle {
-  type_of: string;
-  id: number;
-  path: string;
-  cloudinary_video_url: string;
-  title: string;
-  user_id: number;
-  video_duration_in_minutes: number;
-  video_source_url: string;
-  user: MiniUser;
+interface RawArticle extends BaseArticle {
+  type_of: TypeOfArticle;
+  cover_image: string | null;
+  readable_publish_date: string;
+  social_image: string;
+  tag_list: string;
+  canonical_url: string;
+  comments_count: number;
+  positive_reactions_count: number;
+  public_reactions_count: number;
+  created_at: string;
+  edited_at: string | null;
+  crossposted_at: string | null;
+  published_at: string;
+  last_comment_at: string;
+  published_timestamp: string;
+  body_html: string;
+  reading_time_minutes: number;
+  user: RawUser;
+  organization: RawOrganization;
+  flare_tag: RawFlareTag;
 }
 
-interface VideoArticle {
-  typeOf: string;
-  id: number;
-  path: string;
-  cloudinaryVideoUrl: string;
-  title: string;
-  userId: number;
-  videoDurationInMinutes: number;
-  videoSourceUrl: string;
-  user: MiniUser;
+interface BaseOrganization {
+  name: string;
+  username: string;
+  slug: string;
 }
 
-interface RawUser extends RawBaseProfile {
-  twitter_username: string;
-  github_username: string;
-  website_url: string;
+interface Organization extends BaseOrganization {
+  profileImage: string;
+  profileImage90: string;
 }
 
-interface User extends BaseProfile {
-  twitterUsername: string;
-  githubUsername: string;
-  websiteUrl: string;
+interface RawOrganization extends BaseOrganization {
+  profile_image: string;
+  profile_image_90: string;
+}
+
+interface BaseUser {
+  name: string;
+  username: string;
+}
+
+interface PostOptions {
+  method: 'GET' | 'POST' | 'PUT';
+  headers: {
+    'Content-Type'?: 'application/json' | string,
+    'api-key': string
+  },
+  body?: string;
+}
+
+interface User extends BaseUser {
+  twitterUsername: string | null;
+  githubUsername: string | null;
+  websiteUrl: string | null;
+  profileImage: string;
+  profileImage90: string;
+}
+
+interface RawUser extends BaseUser {
+  twitter_username: string | null;
+  github_username: string | null;
+  website_url: string | null;
+  profile_image: string;
+  profile_image_90: string;
+}
+
+
+interface BaseFlareTag {
+  name: string;
+}
+
+interface FlareTag extends BaseFlareTag {
+  bgColorHex: string;
+  textColorHex: string;
+}
+
+interface RawFlareTag extends BaseFlareTag {
+  bg_color_hex: string;
+  text_color_hex: string;
 }
 ```
 
 ### Types
 ```ts
-type ArticleState = 'FRESH' | 'RISING' | 'ALL';
-type BasePageOptions = Partial<Pick<PageFetchOptions, "page" | "perPage">>;
-type MiniUser = Pick<User, 'name'>;
-type NumberResolvable = number | `${number}`; 
-type RawPage = RawArticle[];
+type ArticleState = 'all' | 'fresh' | 'rising';
+type EndPoint = `/${string}`;
+type NumberResolvable = number | `${number}`;
 type Page = Article[];
+type BaseFetchPageOptions = Partial<Pick<PageFetchOptions, 'perPage' | 'page'>>;
+type Tags = string;
+type TypeOfArticle = 'article';
+type StringIndex<T> = { [key:string]: string }
 ```
