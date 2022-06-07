@@ -1,155 +1,145 @@
-import { ArticleState, MiniUser, NumberResolvable } from "./types";
+import { ArticleState, NumberResolvable, Tags, TypeOfArticle } from "./types";
 
-export interface BaseProfile {
-  name: string;
-  username: string;
-  profileImage: string;
-  profileImage90: string;
-}
-
-export interface RawBaseProfile {
-  name: string;
-  username: string;
-  profile_image: string;
-  profile_image_90: string;
-}
-
-export interface RawFlareTag {
-  name: string;
-  bg_color_hex: string;
-  text_color_hex: string;
-}
-
-export interface FlareTag {
-  name: string;
-  bgColorHex: string;
-  textColorHex: string;
-}
-
-export interface Organization extends BaseProfile {
-  slug: string;
-}
-
-export interface FinalPageFetchOptions {
-  per_page: number;
+export interface BasePageFetchOptions {
   page: NumberResolvable;
-  tag: string;
-  tags: string[] | string;
-  tags_exclude: string[] | string;
+  tag: Tags;
+  tags: Tags[];
   username: string;
   state: ArticleState;
-  top: number;
-  collection_id: NumberResolvable;
+  top: NumberResolvable;
 }
 
-export interface PageFetchOptions {
-  perPage: number;
-  page: NumberResolvable;
-  tag: string;
-  tags: string[] | string;
-  tagsExclude: string[] | string;
-  username: string;
-  state: ArticleState;
-  top: number;
+export interface DevToErrorResponse {
+  error: string;
+  status: number;
+}
+
+export interface PageFetchOptions extends BasePageFetchOptions {
+  perPage: NumberResolvable;
+  tagsExclude: Tags[];
   collectionId: NumberResolvable;
 }
 
-export interface RawArticle {
-  type_of: string;
-  id: number;
-  title: string;
-  description: string;
-  body_html: string | null;
-  body_markdown: string | null;
-  readable_publish_date: string;
-  slug: string;
-  path: string;
-  url: string;
-  comments_count: number;
-  public_reactions_count: number;
-  collection_id: number | null;
-  published_timestamp: string;
-  positive_reactions_count: number;
-  cover_image: string | null;
-  social_image: string;
-  canonical_url: string;
-  created_at: string;
-  edited_at: string | null;
-  crossposted_at: string | null;
-  published_at: string;
-  last_comment_at: string | null;
-  reading_time_minutes: number;
-  tag_list: string[];
-  tags: string;
-  user: RawUser;
-  organization: Organization | null;
-  flare_tag: RawFlareTag;
+export interface FinalPageFetchOptions extends BasePageFetchOptions {
+  per_page: number;
+  tags_exclude: string;
+  collection_id: number;
 }
 
-export interface Article {
-  typeOf: string;
+export interface BaseArticle {
   id: number;
-  title: string;
+  title: number;
   description: string;
-  bodyHtml: string | null;
-  bodyMarkdown: string | null;
-  readablePublishDate: string;
+  tags: Tags[];
   slug: string;
   path: string;
   url: string;
-  commentsCount: number;
-  publicReactionsCount: number;
-  collectionId: number | null;
-  publishedTimestamp: string;
-  positiveReactionsCount: number;
+}
+
+export interface Article extends BaseArticle {
+  typeOf: TypeOfArticle;
   coverImage: string | null;
+  readablePublishDate: string;
   socialImage: string;
+  tagList: string;
   canonicalUrl: string;
+  commentsCount: number;
+  positiveReactionsCount: number;
+  publicReactionsCount: number;
   createdAt: string;
   editedAt: string | null;
   crosspostedAt: string | null;
   publishedAt: string;
-  lastCommentAt: string | null;
+  lastCommentAt: string;
+  publishedTimestamp: string;
+  bodyHtml?: string;
+  bodyMarkdown?: string;
   readingTimeMinutes: number;
-  tagList: string[];
-  tags: string;
   user: User;
-  organization: Organization | null;
+  organization: Organization;
   flareTag: FlareTag;
 }
 
-export interface RawVideoArticle {
-  type_of: string;
-  id: number;
-  path: string;
-  cloudinary_video_url: string;
-  title: string;
-  user_id: number;
-  video_duration_in_minutes: number;
-  video_source_url: string;
-  user: MiniUser;
+export interface RawArticle extends BaseArticle {
+  type_of: TypeOfArticle;
+  cover_image: string | null;
+  readable_publish_date: string;
+  social_image: string;
+  tag_list: string;
+  canonical_url: string;
+  comments_count: number;
+  positive_reactions_count: number;
+  public_reactions_count: number;
+  created_at: string;
+  edited_at: string | null;
+  crossposted_at: string | null;
+  published_at: string;
+  last_comment_at: string;
+  published_timestamp: string;
+  body_html: string;
+  reading_time_minutes: number;
+  user: RawUser;
+  organization: RawOrganization;
+  flare_tag: RawFlareTag;
 }
 
-export interface VideoArticle {
-  typeOf: string;
-  id: number;
-  path: string;
-  cloudinaryVideoUrl: string;
-  title: string;
-  userId: number;
-  videoDurationInMinutes: number;
-  videoSourceUrl: string;
-  user: MiniUser;
+export interface BaseOrganization {
+  name: string;
+  username: string;
+  slug: string;
 }
 
-export interface RawUser extends RawBaseProfile {
-  twitter_username: string;
-  github_username: string;
-  website_url: string;
+export interface Organization extends BaseOrganization {
+  profileImage: string;
+  profileImage90: string;
 }
 
-export interface User extends BaseProfile {
-  twitterUsername: string;
-  githubUsername: string;
-  websiteUrl: string;
+export interface RawOrganization extends BaseOrganization {
+  profile_image: string;
+  profile_image_90: string;
+}
+
+export interface BaseUser {
+  name: string;
+  username: string;
+}
+
+export interface PostOptions {
+  method: 'GET' | 'POST' | 'PUT';
+  headers: {
+    'Content-Type'?: 'application/json' | string,
+    'api-key': string
+  },
+  body?: string;
+}
+
+export interface User extends BaseUser {
+  twitterUsername: string | null;
+  githubUsername: string | null;
+  websiteUrl: string | null;
+  profileImage: string;
+  profileImage90: string;
+}
+
+export interface RawUser extends BaseUser {
+  twitter_username: string | null;
+  github_username: string | null;
+  website_url: string | null;
+  profile_image: string;
+  profile_image_90: string;
+}
+
+
+export interface BaseFlareTag {
+  name: string;
+}
+
+export interface FlareTag extends BaseFlareTag {
+  bgColorHex: string;
+  textColorHex: string;
+}
+
+export interface RawFlareTag extends BaseFlareTag {
+  bg_color_hex: string;
+  text_color_hex: string;
 }
