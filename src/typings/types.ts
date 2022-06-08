@@ -7,4 +7,5 @@ export type Page = Article[];
 export type BaseFetchPageOptions = Partial<Pick<PageFetchOptions, 'perPage' | 'page'>>;
 export type Tags = string;
 export type TypeOfArticle = 'article';
+export type TypeOfMember = 'user';
 export type StringIndex<T> = { [key:string]: string }

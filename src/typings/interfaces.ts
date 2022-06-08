@@ -1,4 +1,8 @@
-import { ArticleState, NumberResolvable, Tags, TypeOfArticle } from "./types";
+import { ArticleState, NumberResolvable, Tags, TypeOfArticle, TypeOfMember } from "./types";
+
+export interface AuthorizationOptions {
+  cacheMe: boolean;
+}
 
 export interface BasePageFetchOptions {
   page: NumberResolvable;
@@ -9,7 +13,7 @@ export interface BasePageFetchOptions {
   top: NumberResolvable;
 }
 
-export interface DevToErrorResponse {
+export interface DevDotToErrorResponse {
   error: string;
   status: number;
 }
@@ -99,9 +103,26 @@ export interface RawOrganization extends BaseOrganization {
   profile_image_90: string;
 }
 
-export interface BaseUser {
-  name: string;
-  username: string;
+export interface BaseNewArticleData {
+  title: string;
+  published: boolean;
+  series?: string;
+  description: string;
+  tags: Tags[];
+}
+
+export interface NewArticleData extends BaseNewArticleData {
+  bodyMarkdown: string;
+  mainImage?: string;
+  canonicalUrl?: string;
+  organizationId?: string;
+}
+
+export interface RawNewArticleData extends BaseNewArticleData {
+  body_markdown: string;
+  main_image: string;
+  canonical_url: string;
+  organization_id: string;
 }
 
 export interface PostOptions {
@@ -113,7 +134,14 @@ export interface PostOptions {
   body?: string;
 }
 
+export interface BaseUser {
+  id: number;
+  name: string;
+  username: string;
+}
+
 export interface User extends BaseUser {
+  typeOf: TypeOfMember;
   twitterUsername: string | null;
   githubUsername: string | null;
   websiteUrl: string | null;
@@ -122,13 +150,13 @@ export interface User extends BaseUser {
 }
 
 export interface RawUser extends BaseUser {
+  type_of: TypeOfMember;
   twitter_username: string | null;
   github_username: string | null;
   website_url: string | null;
   profile_image: string;
   profile_image_90: string;
 }
-
 
 export interface BaseFlareTag {
   name: string;
