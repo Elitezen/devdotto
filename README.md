@@ -24,6 +24,9 @@ Requires NodeJS 18.3 or higher
 npm i devdotto
 ```
 
+# Documentation
+https://github.com/Elitezen/devdotto/wiki/Documentation
+
 # Example Usage
 
 ## Fetching Articles
