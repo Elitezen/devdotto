@@ -8,13 +8,9 @@ Requires NodeJS 18.3 or higher
 npm i devdotto
 ```
 
-# What's New
-Added the following functions:
-- getListings()
-- getArticleComments()
-- getArticleById()
+# What's New 
+Renamed DEV references from DevTo/DevDotTo to DEV
 
-Fixed import issues
 
 # Example Usage
 
