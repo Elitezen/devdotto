@@ -1,3 +1,6 @@
+# 0.4.1
+Renamed DEV references from DevTo/DevDotTo to DEV
+
 # 0.4.0
 Refactored error handling throughout functions, added typings for comments and listings. Added main documentation to README. Now exports all typings. Fixed dist errors of old imports.
 
