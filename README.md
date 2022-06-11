@@ -8,6 +8,14 @@ Requires NodeJS 18.3 or higher
 npm i devdotto
 ```
 
+# What's New
+Added the following functions:
+- getListings()
+- getArticleComments()
+- getArticleById()
+
+Fixed import issues
+
 # Example Usage
 
 ## Fetching Articles
