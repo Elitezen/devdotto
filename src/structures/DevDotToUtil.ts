@@ -39,10 +39,10 @@ const DevDotToUtil = {
         StringIndex<FinalPageFetchOptions>
       >(options);
   
-      params += new URLSearchParams(parsedOptions).toString();
+      params += `?${new URLSearchParams(parsedOptions).toString()}`;
     }
   
-    return params ? `?${params}` : '';
+    return params;
   },
 
   async request<T extends object | object[]>(

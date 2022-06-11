@@ -1,4 +1,4 @@
-import { ArticleState, NumberResolvable, Tags, TypeOfArticle, TypeOfMember } from "./types";
+import { ArticleState, EndPoint, ListingCategory, NumberResolvable, Tags, TypeOfArticle, TypeOfMember, VideoDurationFormat } from "./types";
 
 export interface AuthorizationOptions {
   cacheMe: boolean;
@@ -11,6 +11,24 @@ export interface BasePageFetchOptions {
   username: string;
   state: ArticleState;
   top: NumberResolvable;
+}
+
+export interface Comment {
+  typeOf: 'comment';
+  idCode: string;
+  createdAt: string;
+  bodyHtml: string;
+  user: User;
+  children: Comment[] | null;
+}
+
+export interface RawComment {
+  type_of: 'comment';
+  id_code: string;
+  created_at: string;
+  body_html: string;
+  user: RawUser;
+  children: RawComment[] | null;
 }
 
 export interface DevDotToErrorResponse {
@@ -170,4 +188,106 @@ export interface FlareTag extends BaseFlareTag {
 export interface RawFlareTag extends BaseFlareTag {
   bg_color_hex: string;
   text_color_hex: string;
+}
+
+export interface FollowedTags {
+  id: number;
+  name: Tags;
+  points: number;
+}
+
+export interface BaseFollower {
+  id: number;
+  name: string;
+  path: EndPoint;
+  username: string;
+}
+
+export interface Follower extends BaseFollower {
+  typeOf: 'user_follower';
+  createdAt: string;
+  profileImage: string;
+}
+
+export interface RawFollower extends BaseFollower {
+  type_of: 'user_follower';
+  created_at: string;
+  profile_image: string;
+}
+
+export interface BaseListing {
+  id: number;
+  title: string;
+  slug: string;
+  tags: Tags[];
+  category: string;
+  published: boolean;
+}
+
+export interface Listing extends BaseListing {
+  typeOf: 'listing';
+  createdAt: string;
+  bodyMarkdown: string;
+  tagList: string;
+  processedHtml: string;
+  user: Omit<User, 'id'>;
+}
+
+export interface RawListing extends BaseListing {
+  type_of: 'listing';
+  created_at: string;
+  body_markdown: string;
+  tag_list: string;
+  processed_html: string;
+  user: Omit<RawUser, 'id'>;
+}
+
+export interface BaseVideoArticle {
+  id: string;
+  path: string;
+  title: string;
+}
+
+export interface VideoArticle extends BaseVideoArticle {
+  typeOf: TypeOfArticle;
+  cloudinaryVideoUrl: string;
+  userId: string;
+  videoDurationInMinutes: VideoDurationFormat;
+  videoSourceUrl: string;
+  user: Pick<User, 'name'>;
+}
+
+export interface RawVideoArticle extends BaseVideoArticle {
+  type_of: TypeOfArticle;
+  cloudinary_video_url: string;
+  user_id: string;
+  video_duration_in_minutes: VideoDurationFormat;
+  video_source_url: string;
+  user: Pick<RawUser, 'name'>;
+}
+
+export interface ArticleIdentifierOptions {
+  aId: NumberResolvable;
+  pId?: never;
+}
+
+export interface FinalArticleIdentifierOptions {
+  a_id: NumberResolvable;
+}
+
+export interface PodcastIdentifierOptions {
+ pId: NumberResolvable;
+ aId?: never;
+}
+
+export interface FinalPodcastIdentifierOptions {
+ p_id: NumberResolvable;
+}
+
+export interface ListingCategoryOptions {
+  category: ListingCategory
+}
+
+export interface SortOptions {
+  sort: string;
 }

@@ -1,9 +1,11 @@
 {
   "name": "devdotto",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A NodeJS wrapper for the Dev.to API",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": ["dist/"],
   "scripts": {
     "build": "tsc",
     "exec": "npm run build && node ."
@@ -15,7 +17,9 @@
   "keywords": [
     "dev.to",
     "devdotto",
-    "devto"
+    "devto",
+    "dev.to",
+    "DEV"
   ],
   "author": "Alejandro Muratalla-Marin",
   "license": "ISC",

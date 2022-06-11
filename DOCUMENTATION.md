@@ -1,4 +1,4 @@
-# Documentation (0.3.0)
+# Documentation (0.4.0)
 
 ## Functions
 
@@ -7,6 +7,10 @@
 - [getArticleByPath()](#getarticlebypath)
 - [getLatestArticles()](#getlatestarticles)
 - [getVideoArticles()](#getvideoarticles)
+- [getArticleComments()](#getarticlecomments)
+- [getCommentById()](#getcommentbyid)
+- [getListings()](#getlistings)
+- [getUserById()](#getuserbyid)
 
 ## Classes
 
@@ -80,6 +84,52 @@ const page = await getVideoArticles({
 });
 ```
 
+# getarticlecomments
+
+### getArticleComments(id: [ArticleIdentifierOptions](#articleidentifieroptions) | [PodcastIdentifierOptions](#podcastidentifieroptions)):Promise<[Comment](#comment)[]>
+
+Fetches the comments of an article.
+
+```js
+const articleComments = await getArticleComments({
+  aId: '12345'
+});
+
+const podcastComments = await getArticleComments({
+  pId: '12345'
+});
+```
+
+# getcommentbyid
+
+### getCommentById(id:[NumberResolvable](#numberresolvable)): Promise<[Comment](#comment)>
+
+Fetches a comment by it's id.
+
+```js
+const comment = await getCommentById('12345');
+```
+
+# getlistings
+
+### getListings(options?:[CategorizedListingOptions](#categorizedlistingoptions)):Promise<[Listing](#listing)[]>
+
+Fetches listings.
+
+```js
+const listings = await getListings();
+```
+
+# getuserbyid
+
+# getUserById(id:[NumberResolvable](#numberresolvable)):Promise<[User](#user)>
+
+Fetches a DEV user by their id.
+
+```js
+const user = await getUserById('12345');
+```
+
 # devtoclient
 
 ## DevToClient
@@ -148,6 +198,26 @@ const allMyArticles = await client.getAllMyArticles();
 
 ---
 
+getMyFollowedTags():Promise<[FollowedTags](#followedtags)[]>
+
+Fetches your followed tags.
+
+```js
+const myFollowedTags = await client.getMyFollowedTags();
+```
+
+---
+
+getMyFollowers(options?:Partial<[SortedPageOptions](#sortedpageoptions)>):Promise<[Follower](#follower)[]>
+
+Fetches your followers.
+
+```js
+const myFollowers = await DevToClient.getMyFollowers();
+```
+
+---
+
 createArticle(data:[NewArticleData](#newarticledata)):Promise<[Article](#article)>
 
 Creates a new article under the user's authentication.
@@ -190,8 +260,6 @@ Fetches the authenticator's user.
 
 ---
 
-# typings
-
 ### Typings
 
 ### Types
@@ -200,6 +268,12 @@ Fetches the authenticator's user.
 
 ```ts
 type ArticleState = 'all' | 'fresh' | 'rising';
+```
+
+# categorizedlistingoptions
+
+```ts
+type CategorizedListingOptions = BasePageOptions & ListingCategoryOptions;
 ```
 
 # endpoint
@@ -247,6 +321,12 @@ type TypeOfMember = 'user';
 
 ```ts
 type StringIndex<T> = { [key:string]: string };
+```
+
+# sortedpageoptions
+
+```ts
+type SortedPageOptions = BasePageOptions & SortOptions;
 ```
 
 # videodurationformat
@@ -534,6 +614,86 @@ interface FlareTag extends BaseFlareTag {
 interface RawFlareTag extends BaseFlareTag {
   bg_color_hex: string;
   text_color_hex: string;
+}
+```
+
+# followedtags
+
+```ts
+export interface FollowedTags {
+  id: number;
+  name: Tags;
+  points: number;
+}
+```
+
+# basefollower
+
+```ts
+interface BaseFollower {
+  id: number;
+  name: string;
+  path: EndPoint;
+  username: string;
+}
+```
+
+# follower
+
+```ts
+interface Follower extends BaseFollower {
+  typeOf: 'user_follower';
+  createdAt: string;
+  profileImage: string;
+}
+```
+
+# rawfollower
+
+```ts
+interface RawFollower extends BaseFollower {
+  type_of: 'user_follower';
+  created_at: string;
+  profile_image: string;
+}
+```
+
+# baselisting
+
+```ts
+interface BaseListing {
+  id: number;
+  title: string;
+  slug: string;
+  tags: Tags[];
+  category: string;
+  published: boolean;
+}
+```
+
+# listing
+
+```ts
+interface Listing extends BaseListing {
+  typeOf: 'listing';
+  createdAt: string;
+  bodyMarkdown: string;
+  tagList: string;
+  processedHtml: string;
+  user: Omit<User, 'id'>;
+}
+```
+
+# rawlisting
+
+```ts
+interface RawListing extends BaseListing {
+  type_of: 'listing';
+  created_at: string;
+  body_markdown: string;
+  tag_list: string;
+  processed_html: string;
+  user: Omit<RawUser, 'id'>;
 }
 ```
 

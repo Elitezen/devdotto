@@ -10,10 +10,5 @@ const { request } = DevDotToUtil;
  * @returns {Promise<User>}
  */
 export async function getUserById(id:NumberResolvable):Promise<User> {
-  try {
-    const req = await request<User>(`/users/${id}`);
-    return req;
-  } catch(err) {
-    throw err;
-  }
+  return await request<User>(`/users/${id}`);
 }

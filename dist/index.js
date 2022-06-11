@@ -1,11 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports._request = exports._camelCaseConvert = exports.fetchArticles = void 0;
-var fetchArticles_1 = require("./src/functions/fetchArticles");
-exports.fetchArticles = fetchArticles_1.default;
-var _camelCaseConvert_1 = require("./src/functions/_camelCaseConvert");
-exports._camelCaseConvert = _camelCaseConvert_1.default;
-var _request_1 = require("./src/functions/_request");
-exports._request = _request_1.default;
-(0, fetchArticles_1.default)()
-    .then(console.log);
+exports.DevToClient = exports.getCommentById = exports.getArticleComments = exports.getUserById = exports.getListings = exports.getVideoArticles = exports.getArticleById = exports.getArticleByPath = exports.getLatestArticles = exports.getArticles = void 0;
+const articles_1 = require("./src/functions/articles");
+Object.defineProperty(exports, "getArticleById", { enumerable: true, get: function () { return articles_1.getArticleById; } });
+Object.defineProperty(exports, "getArticleByPath", { enumerable: true, get: function () { return articles_1.getArticleByPath; } });
+Object.defineProperty(exports, "getArticles", { enumerable: true, get: function () { return articles_1.getArticles; } });
+Object.defineProperty(exports, "getLatestArticles", { enumerable: true, get: function () { return articles_1.getLatestArticles; } });
+Object.defineProperty(exports, "getVideoArticles", { enumerable: true, get: function () { return articles_1.getVideoArticles; } });
+const comments_1 = require("./src/functions/comments");
+Object.defineProperty(exports, "getArticleComments", { enumerable: true, get: function () { return comments_1.getArticleComments; } });
+Object.defineProperty(exports, "getCommentById", { enumerable: true, get: function () { return comments_1.getCommentById; } });
+const listing_1 = require("./src/functions/listing");
+Object.defineProperty(exports, "getListings", { enumerable: true, get: function () { return listing_1.getListings; } });
+const users_1 = require("./src/functions/users");
+Object.defineProperty(exports, "getUserById", { enumerable: true, get: function () { return users_1.getUserById; } });
+const DevToClient_1 = require("./src/structures/DevToClient");
+exports.DevToClient = DevToClient_1.default;

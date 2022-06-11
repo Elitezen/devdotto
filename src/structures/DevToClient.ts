@@ -1,8 +1,8 @@
-import { Article, AuthorizationOptions, DevDotToErrorResponse, NewArticleData, PostOptions, RawNewArticleData, User } from "../typings/interfaces";
-import { BaseFetchPageOptions, EndPoint, NumberResolvable } from "../typings/types";
+import { Article, AuthorizationOptions, DevDotToErrorResponse, FollowedTags, Follower, NewArticleData, PostOptions, RawNewArticleData, User } from "../typings/interfaces";
+import { BaseFetchPageOptions, EndPoint, NumberResolvable, SortedPageOptions } from "../typings/types";
 import DevDotToUtil from "./DevDotToUtil";
 
-const { request, snakeCaseKeys } = DevDotToUtil;
+const { request, snakeCaseKeys, parseParameters } = DevDotToUtil;
 
 /**
  * @class A client for endpoints that require API authentication.
@@ -56,11 +56,8 @@ export default class DevToClient {
    * @returns {Promise<Article[]>}
    */
   async getMyArticles(options?:BaseFetchPageOptions):Promise<Article[]> {
-    try {
-      return await this.authenticatedRequest('/articles/me', 'GET', true);
-    } catch (err) {
-      throw err;
-    }
+    const query = parseParameters(options);
+    return await this.authenticatedRequest(`/articles/me${query}`, 'GET', true);
   }
 
   /**
@@ -69,11 +66,8 @@ export default class DevToClient {
    * @returns {Promise<Article[]>}
    */
   async getMyPublishedArticles(options?:BaseFetchPageOptions):Promise<Article[]> {
-    try {
-      return this.authenticatedRequest('/articles/me/published', 'GET', true)
-    } catch (err) {
-      throw err;
-    }
+    const query = parseParameters(options);
+    return await this.authenticatedRequest(`/articles/me/published${query}`, 'GET', true);
   }
 
   /**
@@ -82,11 +76,8 @@ export default class DevToClient {
    * @returns {Promise<Article[]>}
    */
   async getMyUnpublishedArticles(options?:BaseFetchPageOptions):Promise<Article[]> {
-    try {
-      return await this.authenticatedRequest('/articles/me/unpublished', 'GET', true);
-    } catch (err) {
-      throw err;
-    }
+    const query = parseParameters(options);
+    return await this.authenticatedRequest(`/articles/me/unpublished${query}`, 'GET', true);
   }
 
   /**
@@ -95,11 +86,26 @@ export default class DevToClient {
    * @returns {Promise<Article[]>}
    */
   async getAllMyArticles(options?:BaseFetchPageOptions):Promise<Article[]> {
-    try {
-      return this.authenticatedRequest('/articles/me/all', 'GET', true);
-    } catch (err) {
-      throw err;
-    }
+    const query = parseParameters(options);
+    return await this.authenticatedRequest(`/articles/me/all${query}`, 'GET', true);
+  }
+
+  /**
+   * Fetches your followed tags.
+   * @returns {Promise<FollowedTags[]>}
+   */
+  async getMyFollowedTags():Promise<FollowedTags[]> {
+    return await this.authenticatedRequest('/follows/tags', 'GET', true);
+  }
+
+  /**
+   * Fetches your followers.
+   * @param {Partial<SortedPageOptions>} options How many to return and how to sort the followers.
+   * @returns {Promise<Follower[]>}
+   */
+  async getMyFollowers(options?:Partial<SortedPageOptions>):Promise<Follower[]> {
+    const query = parseParameters(options);
+    return await this.authenticatedRequest(`/followers/users${query}`, 'GET', true);
   }
 
   /**
@@ -108,16 +114,12 @@ export default class DevToClient {
    * @returns {Promise<Article>} The newely created article.
    */
   async createArticle(data:NewArticleData):Promise<Article> {
-    try {
-      const finalData = snakeCaseKeys<RawNewArticleData>(data);
-      const body = JSON.stringify({
-        article: finalData
-      });
+    const finalData = snakeCaseKeys<RawNewArticleData>(data);
+    const body = JSON.stringify({
+      article: finalData
+    });
 
-      return this.authenticatedRequest('/articles', 'POST', true, body);
-    } catch (err) {
-      throw err;
-    }
+    return await this.authenticatedRequest('/articles', 'POST', true, body);
   }
 
   /**
@@ -127,26 +129,18 @@ export default class DevToClient {
    * @returns {Promise<Article>} The now edited article.
    */
   async updateArticleById(id:NumberResolvable, data:NewArticleData):Promise<Article> {
-    try {
-      const finalData = snakeCaseKeys<RawNewArticleData>(data);
-      const body = JSON.stringify({
-        article: finalData
-      });
+    const finalData = snakeCaseKeys<RawNewArticleData>(data);
+    const body = JSON.stringify({
+      article: finalData
+    });
 
-      return this.authenticatedRequest(`/articles/${id}`, 'POST', true, body);
-    } catch (err) {
-      throw err;
-    }
+    return await this.authenticatedRequest(`/articles/${id}`, 'POST', true, body);
   }
 
   /**
    * Fetches the authenticator's user.
    */
   async getMe():Promise<User> {
-    try {
-      return this.authenticatedRequest('/users/me', 'GET', true);
-    } catch (err) {
-      throw err;
-    }
+    return await this.authenticatedRequest('/users/me', 'GET', true);
   }
 }

@@ -1,3 +1,20 @@
+# 0.4.0
+Refactored error handling throughout functions, added typings for comments and listings. Added main documentation to README. Now exports all typings. Fixed dist errors of old imports.
+
+Added the following functions:
+- getListings()
+- getArticleComments()
+- getArticleById()
+
+Created .npmignore:
+
+```
+images/
+```
+
+# 0.3.0
+Added getUserById(), DevDotToError class, refactors of functions and typings.
+
 # 0.2.1
 Refactor and renaming of functions and typings, created client class for functions
 that require authorization. Switched from node-fetch to the built-in fetch API (Node 18.3.0)
