@@ -1,8 +1,8 @@
 import { ArticleIdentifierOptions, PodcastIdentifierOptions, Comment } from "../typings/interfaces";
-import DevDotToUtil from "../structures/DevDotToUtil";
+import DEVUtil from "../structures/DEVUtil";
 import { NumberResolvable } from "../typings/types";
 
-const { request, parseParameters } = DevDotToUtil;
+const { request, parseParameters } = DEVUtil;
 
 /**
  * Fetches the comments of an article.

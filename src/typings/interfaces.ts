@@ -31,7 +31,7 @@ export interface RawComment {
   children: RawComment[] | null;
 }
 
-export interface DevDotToErrorResponse {
+export interface DEVErrorResponse {
   error: string;
   status: number;
 }

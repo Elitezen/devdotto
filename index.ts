@@ -19,7 +19,7 @@ import {
   getUserById 
 } from './src/functions/users';
 
-import DevToClient from "./src/structures/DevToClient";
+import DEVClient from "./src/structures/DEVClient";
 
 import {
   AuthorizationOptions,
@@ -41,7 +41,7 @@ import {
   RawOrganization,
   RawUser,
   RawVideoArticle,
-  DevDotToErrorResponse,
+  DEVErrorResponse,
   Comment,
   ListingCategoryOptions,
   FinalArticleIdentifierOptions,
@@ -87,7 +87,7 @@ export {
   getUserById,
   getArticleComments,
   getCommentById,
-  DevToClient,
+  DEVClient,
   AuthorizationOptions,
   BaseArticle,
   BaseFlareTag,
@@ -107,7 +107,7 @@ export {
   RawOrganization,
   RawUser,
   RawVideoArticle,
-  DevDotToErrorResponse,
+  DEVErrorResponse,
   Comment,
   ListingCategoryOptions,
   FinalArticleIdentifierOptions,

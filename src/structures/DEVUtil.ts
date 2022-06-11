@@ -1,8 +1,8 @@
-import { DevDotToErrorResponse, FinalPageFetchOptions, PostOptions } from "../typings/interfaces";
+import { DEVErrorResponse, FinalPageFetchOptions, PostOptions } from "../typings/interfaces";
 import { EndPoint, StringIndex } from "../typings/types";
-import DevDotToError from "./DevDotToError";
+import DEVError from "./DEVError";
 
-const DevDotToUtil = {
+const DEVUtil = {
   camelCaseKeys: function <T extends object>(obj:object):T {
     if (obj === undefined) throw new TypeError('A valid object must be provided'); 
 
@@ -35,7 +35,7 @@ const DevDotToUtil = {
     let params = '';
   
     if (options) {
-      const parsedOptions = DevDotToUtil.snakeCaseKeys<
+      const parsedOptions = DEVUtil.snakeCaseKeys<
         StringIndex<FinalPageFetchOptions>
       >(options);
   
@@ -56,10 +56,10 @@ const DevDotToUtil = {
     
     try {
       const req = await fetch(baseLink + path, params || defaultParams);
-      const response:Promise<T> | DevDotToErrorResponse = await req.json();
+      const response:Promise<T> | DEVErrorResponse = await req.json();
 
       const errorResponse = (
-        (response as DevDotToErrorResponse).error && (response as DevDotToErrorResponse)
+        (response as DEVErrorResponse).error && (response as DEVErrorResponse)
       ) || false;
       if (errorResponse) throw errorResponse;
 
@@ -67,12 +67,12 @@ const DevDotToUtil = {
       if (camelCaseParse === false) return data;
 
       const finalData = data instanceof Array
-        ? data.map(article => DevDotToUtil.camelCaseKeys(article))
-        : DevDotToUtil.camelCaseKeys(data);
+        ? data.map(article => DEVUtil.camelCaseKeys(article))
+        : DEVUtil.camelCaseKeys(data);
       return finalData as Promise<T>;
     } catch (err) {
-      const e = err as DevDotToErrorResponse;
-      throw new DevDotToError(e.error, e.status);
+      const e = err as DEVErrorResponse;
+      throw new DEVError(e.error, e.status);
     }
   },
 
@@ -93,11 +93,11 @@ const DevDotToUtil = {
 
       key = letters.join('');
 
-      newObj[key] = DevDotToUtil.isObject(value) ? this.snakeCaseKeys(value) : value;
+      newObj[key] = DEVUtil.isObject(value) ? this.snakeCaseKeys(value) : value;
     }); 
 
     return newObj as T;
   },
 };
 
-export default DevDotToUtil;
+export default DEVUtil;

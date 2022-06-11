@@ -1,8 +1,8 @@
 import { Article, PageFetchOptions, VideoArticle } from "../typings/interfaces";
 import { BaseFetchPageOptions, NumberResolvable, Page } from "../typings/types";
-import DevDotToUtil from "../structures/DevDotToUtil";
+import DEVUtil from "../structures/DEVUtil";
 
-const { request, parseParameters } = DevDotToUtil;
+const { request, parseParameters } = DEVUtil;
 
  /**
  * Fetches a page of articles.

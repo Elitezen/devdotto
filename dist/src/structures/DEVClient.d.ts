@@ -3,11 +3,11 @@ import { BaseFetchPageOptions, EndPoint, NumberResolvable, SortedPageOptions } f
 /**
  * @class A client for endpoints that require API authentication.
  */
-export default class DevToClient {
+export default class DEVClient {
     #private;
     me: User | null;
     /**
-     * Assigns an API key to the client for usage. Will also cache your user to DevToClient.me if awaited
+     * Assigns an API key to the client for usage. Will also cache your user to DEVClient.me if awaited
      * @param {string} key The API key.
      * @returns
      */

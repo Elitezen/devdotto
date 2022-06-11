@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @class For DEV API errors.
  */
-class DevDotToError extends Error {
+class DEVError extends Error {
     constructor(message, status) {
         super(message);
-        this.name = `DevDotToError [${status}]`;
+        this.name = `DEVError [${status}]`;
     }
 }
-exports.default = DevDotToError;
+exports.default = DEVError;

@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCommentById = exports.getArticleComments = void 0;
-const DevDotToUtil_1 = require("../structures/DevDotToUtil");
-const { request, parseParameters } = DevDotToUtil_1.default;
+const DEVUtil_1 = require("../structures/DEVUtil");
+const { request, parseParameters } = DEVUtil_1.default;
 /**
  * Fetches the comments of an article.
  * @param {ArticleIdentifierOptions | PodcastIdentifierOptions} id The id of the article or podcast.

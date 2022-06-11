@@ -19,26 +19,26 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _DevToClient_apiKey;
+var _DEVClient_apiKey;
 Object.defineProperty(exports, "__esModule", { value: true });
-const DevDotToUtil_1 = require("./DevDotToUtil");
-const { request, snakeCaseKeys, parseParameters } = DevDotToUtil_1.default;
+const DEVUtil_1 = require("./DEVUtil");
+const { request, snakeCaseKeys, parseParameters } = DEVUtil_1.default;
 /**
  * @class A client for endpoints that require API authentication.
  */
-class DevToClient {
+class DEVClient {
     constructor() {
-        _DevToClient_apiKey.set(this, null);
+        _DEVClient_apiKey.set(this, null);
         this.me = null;
     }
     /**
-     * Assigns an API key to the client for usage. Will also cache your user to DevToClient.me if awaited
+     * Assigns an API key to the client for usage. Will also cache your user to DEVClient.me if awaited
      * @param {string} key The API key.
      * @returns
      */
     authorize(key, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            __classPrivateFieldSet(this, _DevToClient_apiKey, key, "f");
+            __classPrivateFieldSet(this, _DEVClient_apiKey, key, "f");
             if (options === undefined || options.cacheMe === true) {
                 this.me = yield this.getMe();
             }
@@ -47,13 +47,13 @@ class DevToClient {
     }
     authenticatedRequest(path, method, camelCaseParse = true, body) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (__classPrivateFieldGet(this, _DevToClient_apiKey, "f") === null)
-                throw new TypeError('Your client must be authorized, use DevToClient.authorize(your_api_key)');
+            if (__classPrivateFieldGet(this, _DEVClient_apiKey, "f") === null)
+                throw new TypeError('Your client must be authorized, use DEVClient.authorize(your_api_key)');
             const reqOptions = {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'api-key': __classPrivateFieldGet(this, _DevToClient_apiKey, "f")
+                    'api-key': __classPrivateFieldGet(this, _DEVClient_apiKey, "f")
                 }
             };
             if (body)
@@ -169,5 +169,5 @@ class DevToClient {
         });
     }
 }
-exports.default = DevToClient;
-_DevToClient_apiKey = new WeakMap();
+exports.default = DEVClient;
+_DEVClient_apiKey = new WeakMap();

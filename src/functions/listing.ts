@@ -1,8 +1,8 @@
 import { Listing } from "../typings/interfaces";
-import DevDotToUtil from "../structures/DevDotToUtil";
+import DEVUtil from "../structures/DEVUtil";
 import { CategorizedListingOptions } from "../typings/types";
 
-const { request, parseParameters } = DevDotToUtil;
+const { request, parseParameters } = DEVUtil;
 
 /**
  * Fetches listings.

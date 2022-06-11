@@ -1,8 +1,8 @@
 import { User } from "../typings/interfaces";
 import { NumberResolvable } from "../typings/types";
-import DevDotToUtil from "../structures/DevDotToUtil";
+import DEVUtil from "../structures/DEVUtil";
 
-const { request } = DevDotToUtil;
+const { request } = DEVUtil;
 
 /**
  * Fetches a DEV user by their id.

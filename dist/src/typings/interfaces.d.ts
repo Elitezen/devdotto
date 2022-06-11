@@ -26,7 +26,7 @@ export interface RawComment {
     user: RawUser;
     children: RawComment[] | null;
 }
-export interface DevDotToErrorResponse {
+export interface DEVErrorResponse {
     error: string;
     status: number;
 }

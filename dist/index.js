@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DevToClient = exports.getCommentById = exports.getArticleComments = exports.getUserById = exports.getListings = exports.getVideoArticles = exports.getArticleById = exports.getArticleByPath = exports.getLatestArticles = exports.getArticles = void 0;
+exports.DEVClient = exports.getCommentById = exports.getArticleComments = exports.getUserById = exports.getListings = exports.getVideoArticles = exports.getArticleById = exports.getArticleByPath = exports.getLatestArticles = exports.getArticles = void 0;
 const articles_1 = require("./src/functions/articles");
 Object.defineProperty(exports, "getArticleById", { enumerable: true, get: function () { return articles_1.getArticleById; } });
 Object.defineProperty(exports, "getArticleByPath", { enumerable: true, get: function () { return articles_1.getArticleByPath; } });
@@ -14,5 +14,5 @@ const listing_1 = require("./src/functions/listing");
 Object.defineProperty(exports, "getListings", { enumerable: true, get: function () { return listing_1.getListings; } });
 const users_1 = require("./src/functions/users");
 Object.defineProperty(exports, "getUserById", { enumerable: true, get: function () { return users_1.getUserById; } });
-const DevToClient_1 = require("./src/structures/DevToClient");
-exports.DevToClient = DevToClient_1.default;
+const DEVClient_1 = require("./src/structures/DEVClient");
+exports.DEVClient = DEVClient_1.default;

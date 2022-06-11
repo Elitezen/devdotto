@@ -14,7 +14,7 @@
 
 ## Classes
 
-- [DevToClient](#devtoclient)
+- [DEVClient](#DEVClient)
 
 ## Typings
 
@@ -130,9 +130,9 @@ Fetches a DEV user by their id.
 const user = await getUserById('12345');
 ```
 
-# devtoclient
+# DEVClient
 
-## DevToClient
+## DEVClient
 
 ### Properties
 
@@ -151,7 +151,7 @@ authorize(key:string, options?:[AuthorizationOptions](#authorizationoptions)):vo
 Assigns an API key to the client and fetches the user object. This function must be awaited for the user object to be assigned.
 
 ```js
-const client = new DevToClient();
+const client = new DEVClient();
 
 await client.authorize('api_key');
 ```
@@ -213,7 +213,7 @@ getMyFollowers(options?:Partial<[SortedPageOptions](#sortedpageoptions)>):Promis
 Fetches your followers.
 
 ```js
-const myFollowers = await DevToClient.getMyFollowers();
+const myFollowers = await DEVClient.getMyFollowers();
 ```
 
 ---

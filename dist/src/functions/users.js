@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserById = void 0;
-const DevDotToUtil_1 = require("../structures/DevDotToUtil");
-const { request } = DevDotToUtil_1.default;
+const DEVUtil_1 = require("../structures/DEVUtil");
+const { request } = DEVUtil_1.default;
 /**
  * Fetches a DEV user by their id.
  * @param {NumberResolvable} id The user's id.

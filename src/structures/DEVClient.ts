@@ -1,18 +1,18 @@
-import { Article, AuthorizationOptions, DevDotToErrorResponse, FollowedTags, Follower, NewArticleData, PostOptions, RawNewArticleData, User } from "../typings/interfaces";
+import { Article, AuthorizationOptions, DEVErrorResponse, FollowedTags, Follower, NewArticleData, PostOptions, RawNewArticleData, User } from "../typings/interfaces";
 import { BaseFetchPageOptions, EndPoint, NumberResolvable, SortedPageOptions } from "../typings/types";
-import DevDotToUtil from "./DevDotToUtil";
+import DEVUtil from "./DEVUtil";
 
-const { request, snakeCaseKeys, parseParameters } = DevDotToUtil;
+const { request, snakeCaseKeys, parseParameters } = DEVUtil;
 
 /**
  * @class A client for endpoints that require API authentication.
  */
-export default class DevToClient {
+export default class DEVClient {
   #apiKey: string | null = null;
   public me: User | null = null;
  
   /**
-   * Assigns an API key to the client for usage. Will also cache your user to DevToClient.me if awaited
+   * Assigns an API key to the client for usage. Will also cache your user to DEVClient.me if awaited
    * @param {string} key The API key.
    * @returns 
    */
@@ -30,7 +30,7 @@ export default class DevToClient {
     path:EndPoint, method: 'GET' | 'POST' | 'PUT', camelCaseParse:boolean = true, body?:string
   ):Promise<T> {
     if (this.#apiKey === null) 
-      throw new TypeError('Your client must be authorized, use DevToClient.authorize(your_api_key)');
+      throw new TypeError('Your client must be authorized, use DEVClient.authorize(your_api_key)');
     
     const reqOptions:PostOptions = {
       method,

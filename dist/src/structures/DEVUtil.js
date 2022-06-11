@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const DevDotToError_1 = require("./DevDotToError");
-const DevDotToUtil = {
+const DEVError_1 = require("./DEVError");
+const DEVUtil = {
     camelCaseKeys: function (obj) {
         if (obj === undefined)
             throw new TypeError('A valid object must be provided');
@@ -38,7 +38,7 @@ const DevDotToUtil = {
     parseParameters(options) {
         let params = '';
         if (options) {
-            const parsedOptions = DevDotToUtil.snakeCaseKeys(options);
+            const parsedOptions = DEVUtil.snakeCaseKeys(options);
             params += `?${new URLSearchParams(parsedOptions).toString()}`;
         }
         return params;
@@ -59,13 +59,13 @@ const DevDotToUtil = {
                 if (camelCaseParse === false)
                     return data;
                 const finalData = data instanceof Array
-                    ? data.map(article => DevDotToUtil.camelCaseKeys(article))
-                    : DevDotToUtil.camelCaseKeys(data);
+                    ? data.map(article => DEVUtil.camelCaseKeys(article))
+                    : DEVUtil.camelCaseKeys(data);
                 return finalData;
             }
             catch (err) {
                 const e = err;
-                throw new DevDotToError_1.default(e.error, e.status);
+                throw new DEVError_1.default(e.error, e.status);
             }
         });
     },
@@ -85,9 +85,9 @@ const DevDotToUtil = {
                     return l;
             });
             key = letters.join('');
-            newObj[key] = DevDotToUtil.isObject(value) ? this.snakeCaseKeys(value) : value;
+            newObj[key] = DEVUtil.isObject(value) ? this.snakeCaseKeys(value) : value;
         });
         return newObj;
     },
 };
-exports.default = DevDotToUtil;
+exports.default = DEVUtil;

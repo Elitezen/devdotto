@@ -87,10 +87,10 @@ console.log(articles);
 ## Making Authenticated Requests
 
 ```js
-import { DevToClient } from 'devdotto';
+import { DEVClient } from 'devdotto';
 
 const key = 'YOUR_API_KEY';
-const client = new DevToClient();
+const client = new DEVClient();
 
 await client.authorize(key);
 
@@ -124,7 +124,7 @@ For full docs visit: https://github.com/Elitezen/devdotto/wiki/Documentation
 
 ## Classes
 
-- [DevToClient](#devtoclient)
+- [DEVClient](#DEVClient)
 
 # getarticles
 ### getArticles(options?:Partial<[PageFetchOptions](https://github.com/Elitezen/devdotto/wiki/Documentation#pagefetchoptions)>):Promise<[Page](https://github.com/Elitezen/devdotto/wiki/Documentation#page)<[Article](https://github.com/Elitezen/devdotto/wiki/Documentation#article)>>
@@ -235,9 +235,9 @@ Fetches a DEV user by their id.
 const user = await getUserById('12345');
 ```
 
-# devtoclient
+# DEVClient
 
-## DevToClient
+## DEVClient
 
 ### Properties
 
@@ -256,7 +256,7 @@ authorize(key:string, options?:[AuthorizationOptions](https://github.com/Eliteze
 Assigns an API key to the client and fetches the user object. This function must be awaited for the user object to be assigned.
 
 ```js
-const client = new DevToClient();
+const client = new DEVClient();
 
 await client.authorize('api_key');
 ```
@@ -318,7 +318,7 @@ getMyFollowers(options?:Partial<[SortedPageOptions](https://github.com/Elitezen/
 Fetches your followers.
 
 ```js
-const myFollowers = await DevToClient.getMyFollowers();
+const myFollowers = await DEVClient.getMyFollowers();
 ```
 
 ---
