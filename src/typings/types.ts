@@ -11,6 +11,7 @@ export type ListingCategory = 'cfp' | 'forhire' | 'collabs' | 'education' | 'job
 export type Tags = string;
 export type TypeOfArticle = 'article' | 'video_article';
 export type TypeOfMember = 'user';
+export type ReadingListItemStatus = 'valid' | 'invalid' | 'confirmed' | 'archived';
 export type StringIndex<T> = { [key:string]: string };
 export type SortedPageOptions = BaseFetchPageOptions & SortOptions;
 export type VideoDurationFormat = 

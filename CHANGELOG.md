@@ -1,3 +1,10 @@
+# 0.6.0
+Added typings for podcasts, podcast videos and reading lists. Updated exports
+
+Added the following functions:
+- getPodcastEpisodes()
+- DEVClient.getMyReadingList()
+
 # 0.5.0
 Added typings for new listings and organizations (former organization typings are now OrganizationCover). Small fixes to typings.
 

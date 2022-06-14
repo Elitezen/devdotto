@@ -1,4 +1,4 @@
-import { Article, AuthorizationOptions, DEVErrorResponse, FollowedTags, Follower, Listing, NewArticleData, NewListingData, PostOptions, RawNewArticleData, RawNewListingData, User } from "../typings/interfaces";
+import { Article, AuthorizationOptions, DEVErrorResponse, FollowedTags, Follower, Listing, NewArticleData, NewListingData, PostOptions, RawNewArticleData, RawNewListingData, ReadingListItem, User } from "../typings/interfaces";
 import { BaseFetchPageOptions, EndPoint, ListingAction, NumberResolvable, Page, SortedPageOptions } from "../typings/types";
 import DEVUtil from "./DEVUtil";
 
@@ -115,6 +115,16 @@ export default class DEVClient {
   async getMyFollowers(options?:Partial<SortedPageOptions>):Promise<Page<Article>> {
     const query = parseParameters(options);
     return await this.authenticatedRequest(`/followers/users${query}`, 'GET', true);
+  }
+
+  /**
+   * Fetches your reading list.
+   * @param {BaseFetchPageOptions} options 
+   * @returns {Promise<Page<ReadingListItem>>}
+   */
+  async getMyReadingList(options?:BaseFetchPageOptions):Promise<Page<ReadingListItem>> {
+    const query = parseParameters(options);
+    return await this.authenticatedRequest(`/readinglist${query}`, 'GET', true);
   }
 
   /**

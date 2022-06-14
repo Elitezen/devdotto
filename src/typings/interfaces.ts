@@ -1,4 +1,4 @@
-import { ArticleState, EndPoint, ListingAction, ListingCategory, NumberResolvable, Tags, TypeOfArticle, TypeOfMember, VideoDurationFormat } from "./types";
+import { ArticleState, EndPoint, ListingAction, ListingCategory, NumberResolvable, ReadingListItemStatus, Tags, TypeOfArticle, TypeOfMember, VideoDurationFormat } from "./types";
 
 export interface AuthorizationOptions {
   cacheMe: boolean;
@@ -337,6 +337,60 @@ export interface FinalPodcastIdentifierOptions {
 
 export interface ListingCategoryOptions {
   category: ListingCategory
+}
+
+export interface BasePodcast {
+  title: string;
+  slug: string;
+}
+
+export interface Podcast extends BasePodcast {
+  imageUrl: string;
+}
+
+export interface RawPodcast extends BasePodcast {
+  image_url: string;
+}
+
+export interface BasePodcastEpisode {
+  id: number;
+  path: EndPoint;
+  title: string;
+}
+
+export interface PodcastEpisode extends BasePodcastEpisode {
+  typeOf: 'podcast_episodes';
+  imageUrl: string;
+  className: string;
+  podcast: Podcast
+}
+
+export interface RawPodcastEpisode extends BasePodcastEpisode {
+  type_of: 'podcast_episodes';
+  image_url: string;
+  class_name: string;
+  podcast: RawPodcast;
+}
+
+export interface UsernameBasedOptions {
+  username: string;
+}
+
+export interface BaseReadingListItem {
+  id: number;
+  status: ReadingListItemStatus;
+}
+
+export interface ReadingListItem extends BaseReadingListItem {
+  typeOf: 'string';
+  createdAt: string;
+  article: Article;
+}
+
+export interface RawReadingListItem extends BaseReadingListItem {
+  type_of: 'string';
+  created_at: string;
+  article: RawArticle;
 }
 
 export interface SortOptions {

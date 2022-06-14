@@ -23,6 +23,10 @@ import {
   getOrganizationsArticles
 } from './src/functions/organizations';
 
+import {  
+  getPodcastEpisodes
+} from './src/functions/podcastEpisodes';
+
 import { 
   getUserById 
 } from './src/functions/users';
@@ -71,7 +75,18 @@ import {
   RawNewListingData,
   RawOrganization,
   BaseNewListingData,
-  BaseOrganization
+  BaseOrganization,
+  Podcast,
+  PodcastEpisode, 
+  RawPodcast,
+  RawPodcastEpisode,
+  BasePodcast,
+  BasePodcastEpisode,
+  UsernameBasedOptions,
+  User,
+  RawReadingListItem,
+  ReadingListItem,
+  BaseReadingListItem
 } from './src/typings/interfaces';
 
 import {
@@ -102,6 +117,7 @@ export {
   getOrganizationsUsers,
   getOrganizationsListings,
   getOrganizationsArticles,
+  getPodcastEpisodes,
   getUserById,
   getArticleComments,
   getCommentById,
@@ -160,5 +176,19 @@ export {
   RawNewListingData,
   RawOrganization,
   BaseNewListingData,
-  BaseOrganization
+  BaseOrganization,
+  Podcast,
+  PodcastEpisode, 
+  RawPodcast,
+  RawPodcastEpisode,
+  BasePodcast,
+  BasePodcastEpisode,
+  UsernameBasedOptions,
+  User,
+  RawReadingListItem,
+  ReadingListItem,
+  BaseReadingListItem
 };
+
+getPodcastEpisodes()
+  .then(console.log);

@@ -1,4 +1,4 @@
-# Documentation (0.5.0)
+# Documentation (0.6.0)
 
 ## Functions
 
@@ -15,6 +15,7 @@
 - [getOrganizationsUsers()](#getorganizationsusers)
 - [getOrganizationsListings()](#getorganizationslistings)
 - [getOrganizationsArticles()](#getorganizationsarticles)
+- [getPodcastEpisodes()](#getpodcastepisodes);
 - [getUserById()](#getuserbyid)
 
 ## Classes
@@ -182,6 +183,20 @@ const articles = await getOrganizationsArticles('org-username-here', {
 });
 ```
 
+# getpodcastepisodes
+
+# getPodcastEpisodes(options?:[BaseFetchPageOptions](#basefetchpageoptions) & Partial<[UsernameBasedOptions](#usernamebasedoptions)>):Promise<[Page](#page)<[PodcastEpisode](#podcastepisode)>>
+
+Fetches podcast episodes.
+
+```js
+const episodes = await getPodcastEpisodes({
+  perPage: 5,
+  page: 1,
+  username: '...'
+});
+```
+
 # getuserbyid
 
 # getUserById(id:[NumberResolvable](#numberresolvable)):Promise<[User](#user)>
@@ -286,6 +301,16 @@ Fetches your followers.
 
 ```js
 const myFollowers = await DEVClient.getMyFollowers();
+```
+
+---
+
+getMyReadingList(options?:[BaseFetchPageOptions](#basefetchpageoptions)):Promise<[Page](#page)<[ReadingListItem](#readinglistitem)>>
+
+Fetches your reading list.
+
+```js
+const myList = await DEVClient.getMyReadingList();
 ```
 
 ---
@@ -870,5 +895,97 @@ interface PodcastIdentifierOptions {
 ```ts
 interface FinalPodcastIdentifierOptions {
  p_id: NumberResolvable;
+}
+```
+
+# basepodcast
+
+```ts
+export interface BasePodcast {
+  title: string;
+  slug: string;
+}
+```
+
+# podcast
+
+```ts
+export interface Podcast extends BasePodcast {
+  imageUrl: string;
+}
+```
+
+# rawpodcast
+
+```ts
+export interface RawPodcast extends BasePodcast {
+  image_url: string;
+}
+```
+
+# basepodcastepisode
+
+```ts
+export interface BasePodcastEpisode {
+  id: number;
+  path: EndPoint;
+  title: string;
+}
+```
+
+# podcastepisode
+
+```ts
+export interface PodcastEpisode extends BasePodcastEpisode {
+  typeOf: 'podcast_episodes';
+  imageUrl: string;
+  podcast: Podcast
+}
+```
+
+# rawpodcastepisode
+
+```ts
+export interface RawPodcastEpisode extends BasePodcastEpisode {
+  type_of: 'podcast_episodes';
+  image_url: string;
+  podcast: RawPodcast;
+}
+```
+
+# usernamebasedoptions
+
+```ts
+export interface UsernameBasedOptions {
+  username: string;
+}
+```
+
+# basereadinglistitem
+
+```ts
+export interface BaseReadingListItem {
+  id: number;
+  status: ReadingListItemStatus;
+}
+```
+
+# readinglistitem
+
+```ts
+export interface ReadingListItem extends BaseReadingListItem {
+  typeOf: 'string';
+  createdAt: string;
+  article: Article;
+}
+```
+
+# rawreadinglistitem
+
+```ts
+export interface RawReadingListItem extends BaseReadingListItem {
+  type_of: 'string';
+  created_at: string;
+  article: RawArticle;
 }
 ```
