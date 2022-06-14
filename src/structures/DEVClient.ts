@@ -1,5 +1,5 @@
-import { Article, AuthorizationOptions, DEVErrorResponse, FollowedTags, Follower, NewArticleData, PostOptions, RawNewArticleData, User } from "../typings/interfaces";
-import { BaseFetchPageOptions, EndPoint, NumberResolvable, SortedPageOptions } from "../typings/types";
+import { Article, AuthorizationOptions, DEVErrorResponse, FollowedTags, Follower, Listing, NewArticleData, NewListingData, PostOptions, RawNewArticleData, RawNewListingData, User } from "../typings/interfaces";
+import { BaseFetchPageOptions, EndPoint, ListingAction, NumberResolvable, Page, SortedPageOptions } from "../typings/types";
 import DEVUtil from "./DEVUtil";
 
 const { request, snakeCaseKeys, parseParameters } = DEVUtil;
@@ -53,19 +53,28 @@ export default class DEVClient {
   /**
    * Fetches your articles.
    * @param {BaseFetchPageOptions} options 
-   * @returns {Promise<Article[]>}
+   * @returns {Promise<Page<Article>>}
    */
-  async getMyArticles(options?:BaseFetchPageOptions):Promise<Article[]> {
+  async getMyArticles(options?:BaseFetchPageOptions):Promise<Page<Article>> {
     const query = parseParameters(options);
     return await this.authenticatedRequest(`/articles/me${query}`, 'GET', true);
   }
 
   /**
+   * Fetches your listing by id.
+   * @param {NumberResolvable} id 
+   * @returns 
+   */
+  async getMyListingById(id:NumberResolvable):Promise<Listing> {
+    return await this.authenticatedRequest(`/listings/${id}`, 'GET', true);
+  }
+
+  /**
    * Fetches your published articles.
    * @param {BaseFetchPageOptions} options 
-   * @returns {Promise<Article[]>}
+   * @returns {Promise<Page<Article>>}
    */
-  async getMyPublishedArticles(options?:BaseFetchPageOptions):Promise<Article[]> {
+  async getMyPublishedArticles(options?:BaseFetchPageOptions):Promise<Page<Article>> {
     const query = parseParameters(options);
     return await this.authenticatedRequest(`/articles/me/published${query}`, 'GET', true);
   }
@@ -83,9 +92,9 @@ export default class DEVClient {
   /**
    * Fetches all of your articles.
    * @param {BaseFetchPageOptions} options 
-   * @returns {Promise<Article[]>}
+   * @returns {Promise<Page<Article>>}
    */
-  async getAllMyArticles(options?:BaseFetchPageOptions):Promise<Article[]> {
+  async getAllMyArticles(options?:BaseFetchPageOptions):Promise<Page<Article>> {
     const query = parseParameters(options);
     return await this.authenticatedRequest(`/articles/me/all${query}`, 'GET', true);
   }
@@ -101,9 +110,9 @@ export default class DEVClient {
   /**
    * Fetches your followers.
    * @param {Partial<SortedPageOptions>} options How many to return and how to sort the followers.
-   * @returns {Promise<Follower[]>}
+   * @returns {Promise<Page<Article>>}
    */
-  async getMyFollowers(options?:Partial<SortedPageOptions>):Promise<Follower[]> {
+  async getMyFollowers(options?:Partial<SortedPageOptions>):Promise<Page<Article>> {
     const query = parseParameters(options);
     return await this.authenticatedRequest(`/followers/users${query}`, 'GET', true);
   }
@@ -135,6 +144,27 @@ export default class DEVClient {
     });
 
     return await this.authenticatedRequest(`/articles/${id}`, 'POST', true, body);
+  }
+
+  /**
+   * Updates your listing by id.
+   * @warning Function is untested due to payment restrictions. Report issues at https://github.com/Elitezen/devdotto/issues
+   * @param {NumberResolvable} id The listing's id.
+   * @param {Partial<NewListingData>} data The new listing.
+   * @param {ListingAction} action How to update this listing.
+   * @returns {Promise<Listing>} The new listing.
+   */
+  async updateListingById(
+    id:NumberResolvable, data:Partial<NewListingData>, action?:ListingAction
+  ):Promise<Listing> {
+    let finalData:RawNewListingData & { action?:ListingAction } = snakeCaseKeys<RawNewListingData>(data);
+    if (action) finalData['action'] = action;
+
+    const body = JSON.stringify({
+      listing: finalData
+    });
+
+    return await this.authenticatedRequest(`/listings/${id}`, 'PUT', true, body);
   }
 
   /**

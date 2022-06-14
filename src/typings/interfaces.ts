@@ -1,4 +1,4 @@
-import { ArticleState, EndPoint, ListingCategory, NumberResolvable, Tags, TypeOfArticle, TypeOfMember, VideoDurationFormat } from "./types";
+import { ArticleState, EndPoint, ListingAction, ListingCategory, NumberResolvable, Tags, TypeOfArticle, TypeOfMember, VideoDurationFormat } from "./types";
 
 export interface AuthorizationOptions {
   cacheMe: boolean;
@@ -78,7 +78,7 @@ export interface Article extends BaseArticle {
   bodyMarkdown?: string;
   readingTimeMinutes: number;
   user: User;
-  organization: Organization;
+  organization: OrganizationCover;
   flareTag: FlareTag;
 }
 
@@ -101,22 +101,51 @@ export interface RawArticle extends BaseArticle {
   body_html: string;
   reading_time_minutes: number;
   user: RawUser;
-  organization: RawOrganization;
+  organization: RawOrganizationCover;
   flare_tag: RawFlareTag;
 }
 
 export interface BaseOrganization {
+  username: string;
+  name: string;
+  summary: string | null;
+  url: string;
+  location: string | null;
+  story: string | null;
+}
+
+export interface Organization extends BaseOrganization {
+  typeOf: 'organization';
+  twitterUsername: string | null;
+  githubUsername: string | null;
+  techStack: string | null;
+  tagLine: string | null;
+  joinedAt: string;
+  profileImage: string;
+}
+
+export interface RawOrganization extends BaseOrganization {
+  type_of: 'organization';
+  twitter_username: string | null;
+  github_username: string | null;
+  tech_stack: string | null;
+  tag_line: string | null;
+  joined_at: string;
+  profile_image: string;
+}
+
+export interface BaseOrganizationCover {
   name: string;
   username: string;
   slug: string;
 }
 
-export interface Organization extends BaseOrganization {
+export interface OrganizationCover extends BaseOrganizationCover {
   profileImage: string;
   profileImage90: string;
 }
 
-export interface RawOrganization extends BaseOrganization {
+export interface RawOrganizationCover extends BaseOrganizationCover {
   profile_image: string;
   profile_image_90: string;
 }
@@ -141,6 +170,28 @@ export interface RawNewArticleData extends BaseNewArticleData {
   main_image: string;
   canonical_url: string;
   organization_id: string;
+}
+
+export interface BaseNewListingData {
+  title: string;
+  category: ListingCategory;
+  tags: Tags[];
+  location: string;
+  // action: ListingAction;
+}
+
+export interface NewListingData extends BaseNewListingData {
+  bodyMarkdown: string;
+  tagList: string;
+  expiresAt: string;
+  contactViaConnect: string;
+}
+
+export interface RawNewListingData extends BaseNewListingData {
+  body_markdown: string;
+  tag_list: string;
+  expires_at: string;
+  contact_via_connect: string;
 }
 
 export interface PostOptions {

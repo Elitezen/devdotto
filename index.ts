@@ -12,8 +12,14 @@ import {
 } from './src/functions/comments';
 
 import {
-  getListings
+  getListings,
+  getLisitngById
 } from './src/functions/listing'
+
+import { 
+  getOrganizationByUsername,
+  getOrganizationsUsers
+} from './src/functions/organizations';
 
 import { 
   getUserById 
@@ -28,7 +34,7 @@ import {
   BaseFollower,
   BaseListing,
   BaseNewArticleData,
-  BaseOrganization,
+  BaseOrganizationCover,
   BasePageFetchOptions,
   BaseUser,
   BaseVideoArticle,
@@ -38,7 +44,7 @@ import {
   RawFollower,
   RawListing,
   RawNewArticleData,
-  RawOrganization,
+  RawOrganizationCover,
   RawUser,
   RawVideoArticle,
   DEVErrorResponse,
@@ -53,7 +59,7 @@ import {
   PageFetchOptions,
   PodcastIdentifierOptions,
   PostOptions,
-  Organization,
+  OrganizationCover,
   SortOptions,
   Article,
   ArticleIdentifierOptions,
@@ -84,6 +90,9 @@ export {
   getArticleById,
   getVideoArticles,
   getListings,
+  getLisitngById,
+  getOrganizationByUsername,
+  getOrganizationsUsers,
   getUserById,
   getArticleComments,
   getCommentById,
@@ -94,7 +103,7 @@ export {
   BaseFollower,
   BaseListing,
   BaseNewArticleData,
-  BaseOrganization,
+  BaseOrganizationCover,
   BasePageFetchOptions,
   BaseUser,
   BaseVideoArticle,
@@ -104,7 +113,7 @@ export {
   RawFollower,
   RawListing,
   RawNewArticleData,
-  RawOrganization,
+  RawOrganizationCover,
   RawUser,
   RawVideoArticle,
   DEVErrorResponse,
@@ -119,7 +128,7 @@ export {
   PageFetchOptions,
   PodcastIdentifierOptions,
   PostOptions,
-  Organization,
+  OrganizationCover,
   SortOptions,
   Article,
   ArticleIdentifierOptions,

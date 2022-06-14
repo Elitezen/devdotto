@@ -1,4 +1,4 @@
-# Documentation (0.4.0)
+# Documentation (0.5.0)
 
 ## Functions
 
@@ -10,6 +10,9 @@
 - [getArticleComments()](#getarticlecomments)
 - [getCommentById()](#getcommentbyid)
 - [getListings()](#getlistings)
+- [getListingById()](#getlistingbyid)
+- [getOrganizationByUsername()](#getorganizationbyusername)
+- [getOrganizationsUsers()](#getorganizationsusers)
 - [getUserById()](#getuserbyid)
 
 ## Classes
@@ -120,6 +123,36 @@ Fetches listings.
 const listings = await getListings();
 ```
 
+# getlistingbyid
+
+### getLisitngById(id:[NumberResolvable](#numberresolvable)):Promise<[Listing](#listing)>
+
+Fetches a listing by id. If the listing is unpublished and belongs to you use DEVClient.getMyListingById().
+
+```js
+const listing = await getListingById('12345');
+```
+
+# getorganizationbyusername
+
+# getOrganizationByUsername(username:string):Promise<[Organization](#organization)>
+
+Fetches an organization by it's username
+
+```js
+const organization = await getOrganizationByUsername('username-here');
+```
+
+# getorganizationsusers
+
+# getOrganizationsUsers(username:string, options?:[BaseFetchPageOptions](#basefetchpageoptions)):Promise<[Page](#page)<[User](#user)>>
+
+Fetches the user's of an organization by organization username.
+
+```js
+const users = await getOrganizationsUsers('org-username-here');
+```
+
 # getuserbyid
 
 # getUserById(id:[NumberResolvable](#numberresolvable)):Promise<[User](#user)>
@@ -164,6 +197,16 @@ fetches the user's articles.
 
 ```js
 const myArticles = await client.getMyArticles();
+```
+
+---
+
+getMyListingById(id:[NumberResolvable](#numberresolvable)):Promise<[Listing](#listing)>
+
+Fetches your listing by id.
+
+```js
+const myListing = await client.getMyListingById('12345');
 ```
 
 ---
@@ -448,7 +491,7 @@ interface Article extends BaseArticle {
   bodyMarkdown?: string;
   readingTimeMinutes: number;
   user: User;
-  organization: Organization;
+  organization: OrganizationCover;
   flareTag: FlareTag;
 }
 ```
@@ -475,7 +518,7 @@ interface RawArticle extends BaseArticle {
   body_html: string;
   reading_time_minutes: number;
   user: RawUser;
-  organization: RawOrganization;
+  organization: RawOrganizationCover;
   flare_tag: RawFlareTag;
 }
 ```
@@ -483,7 +526,7 @@ interface RawArticle extends BaseArticle {
 # baseorganization
 
 ```ts
-interface BaseOrganization {
+interface BaseOrganizationCover {
   name: string;
   username: string;
   slug: string;
@@ -493,7 +536,7 @@ interface BaseOrganization {
 # organization
 
 ```ts
-interface Organization extends BaseOrganization {
+interface OrganizationCover extends BaseOrganizationCover {
   profileImage: string;
   profileImage90: string;
 }
@@ -502,7 +545,7 @@ interface Organization extends BaseOrganization {
 # raworganization
 
 ```ts
-interface RawOrganization extends BaseOrganization {
+interface RawOrganizationCover extends BaseOrganizationCover {
   profile_image: string;
   profile_image_90: string;
 }
@@ -539,6 +582,40 @@ interface RawNewArticleData extends BaseNewArticleData {
   main_image: string;
   canonical_url: string;
   organization_id: string;
+}
+```
+
+# basenewlistingdata
+
+```ts
+export interface BaseNewListingData {
+  title: string;
+  category: ListingCategory;
+  tags: Tags[];
+  location: string;
+  // action: ListingAction;
+}
+```
+
+# newlistingdata
+
+```ts
+export interface NewListingData extends BaseNewListingData {
+  bodyMarkdown: string;
+  tagList: string;
+  expiresAt: string;
+  contactViaConnect: string;
+}
+```
+
+# rawnewlistingdata
+
+```ts
+export interface RawNewListingData extends BaseNewListingData {
+  body_markdown: string;
+  tag_list: string;
+  expires_at: string;
+  contact_via_connect: string;
 }
 ```
 

@@ -1,3 +1,13 @@
+# 0.5.0
+Added typings for new listings and organizations (former organization typings are now OrganizationCover). Small fixes to typings
+
+Added the following functions:
+- getListingById()
+- getOrganizationByUsername()
+- getOrganizationsUsers()
+- DEVClient.getMyListingById()
+
+
 # 0.4.1
 Renamed DEV references from DevTo/DevDotTo to DEV
 
