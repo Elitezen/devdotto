@@ -9,7 +9,13 @@ npm i devdotto
 ```
 
 # What's New 
-Renamed DEV references from DevTo/DevDotTo to DEV
+Added the following functions:
+- DEVClient.getMyListingById()
+- getListingById()
+- getOrganizationByUsername()
+- getOrganizationsUsers()
+- getOrganizationsListings()
+- getOrganizationsArticles()
 
 
 # Example Usage
