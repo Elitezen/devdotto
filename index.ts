@@ -18,7 +18,9 @@ import {
 
 import { 
   getOrganizationByUsername,
-  getOrganizationsUsers
+  getOrganizationsUsers,
+  getOrganizationsListings,
+  getOrganizationsArticles
 } from './src/functions/organizations';
 
 import { 
@@ -64,7 +66,12 @@ import {
   Article,
   ArticleIdentifierOptions,
   NewArticleData,
-  VideoArticle
+  VideoArticle,
+  Organization,
+  RawNewListingData,
+  RawOrganization,
+  BaseNewListingData,
+  BaseOrganization
 } from './src/typings/interfaces';
 
 import {
@@ -93,6 +100,8 @@ export {
   getLisitngById,
   getOrganizationByUsername,
   getOrganizationsUsers,
+  getOrganizationsListings,
+  getOrganizationsArticles,
   getUserById,
   getArticleComments,
   getCommentById,
@@ -146,5 +155,10 @@ export {
   Tags,
   TypeOfMember,
   StringIndex,
-  VideoDurationFormat
+  VideoDurationFormat,
+  Organization,
+  RawNewListingData,
+  RawOrganization,
+  BaseNewListingData,
+  BaseOrganization
 };

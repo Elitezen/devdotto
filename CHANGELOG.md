@@ -1,11 +1,13 @@
 # 0.5.0
-Added typings for new listings and organizations (former organization typings are now OrganizationCover). Small fixes to typings
+Added typings for new listings and organizations (former organization typings are now OrganizationCover). Small fixes to typings.
 
 Added the following functions:
+- DEVClient.getMyListingById()
 - getListingById()
 - getOrganizationByUsername()
 - getOrganizationsUsers()
-- DEVClient.getMyListingById()
+- getOrganizationsListings()
+- getOrganizationsArticles()
 
 
 # 0.4.1

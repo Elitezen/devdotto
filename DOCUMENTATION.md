@@ -13,6 +13,8 @@
 - [getListingById()](#getlistingbyid)
 - [getOrganizationByUsername()](#getorganizationbyusername)
 - [getOrganizationsUsers()](#getorganizationsusers)
+- [getOrganizationsListings()](#getorganizationslistings)
+- [getOrganizationsArticles()](#getorganizationsarticles)
 - [getUserById()](#getuserbyid)
 
 ## Classes
@@ -151,6 +153,33 @@ Fetches the user's of an organization by organization username.
 
 ```js
 const users = await getOrganizationsUsers('org-username-here');
+```
+
+# getorganizationslistings
+
+# getOrganizationsListings(username: string, options?:[CategorizedListingOptions](#categorizedlistingoptions)):Promise<[Page](#page)<[Listing](#listing) & { organization:[Organization](#organization) }>>
+
+Fetches the listings of an organization by organization username.
+
+```js
+const listings = await getOrganizationsListings('org-username-here', {
+  perPage: 5,
+  page: 1,
+  category: '...'
+});
+```
+
+# getorganizationsarticles
+
+# getOrganizationsArticles(username: string, options?:[BaseFetchPageOptions](#basefetchpageoptions)):Promise<[Page](#page)<[Article](#article)>>
+
+Fetches the articles of an organization by organization username.
+
+```js
+const articles = await getOrganizationsArticles('org-username-here', {
+  perPage: 5,
+  page: 1
+});
 ```
 
 # getuserbyid
