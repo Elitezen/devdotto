@@ -27,6 +27,10 @@ import {
   getPodcastEpisodes
 } from './src/functions/podcastEpisodes';
 
+import {
+  getTags
+} from './src/functions/tags';
+
 import { 
   getUserById 
 } from './src/functions/users';
@@ -86,7 +90,11 @@ import {
   User,
   RawReadingListItem,
   ReadingListItem,
-  BaseReadingListItem
+  BaseReadingListItem,
+  BaseTag,
+  Tag,
+  RawTag,
+  InvitationOptions
 } from './src/typings/interfaces';
 
 import {
@@ -118,6 +126,7 @@ export {
   getOrganizationsListings,
   getOrganizationsArticles,
   getPodcastEpisodes,
+  getTags,
   getUserById,
   getArticleComments,
   getCommentById,
@@ -187,8 +196,9 @@ export {
   User,
   RawReadingListItem,
   ReadingListItem,
-  BaseReadingListItem
+  BaseReadingListItem,
+  BaseTag,
+  Tag,
+  RawTag,
+  InvitationOptions
 };
-
-getPodcastEpisodes()
-  .then(console.log);

@@ -1,6 +1,6 @@
 # devdotto 
 
-devdotto is an API wrapper for the [DEV](https://dev.to/) API written in TypeScript. This module is still under development with partial coverage of the DEV API currently being updated every few days.
+devdotto is an API wrapper for the [DEV](https://dev.to/) API written in TypeScript. This module is still under development with full coverage of the DEV API.
 
 # Installation
 Requires NodeJS 18.3 or higher
@@ -12,8 +12,12 @@ npm i devdotto
 Added typings for podcasts, podcast videos and reading lists. Updated exports
 
 Added the following functions:
+- getEntityProfilePicture()
 - getPodcastEpisodes()
-- DEVClient.getMyReadingList()
+- getTags()
+- DEVClient
+  - .getMyReadingList()
+  - .inviteToDEV()
 
 # Example Usage
 
@@ -123,7 +127,9 @@ client.createArticle({
 - [getOrganizationsListings()](#getorganizationslistings)
 - [getOrganizationsArticles()](#getorganizationsarticles)
 - [getPodcastEpisodes()](#getpodcastepisodes);
+- [getTags()](#gettags)
 - [getUserById()](#getuserbyid)
+- [getEntityProfilePicture](#getentityprofilepicture)
 
 ## Classes
 
@@ -304,6 +310,16 @@ const episodes = await getPodcastEpisodes({
 });
 ```
 
+# getTags
+
+# getTags(options?:[BaseFetchPageOptions](#basefetchpageoptions)):Promise<[Page](#page)<[Tag](#tag)>>
+
+Fetches all tags.
+
+```js
+const tags = await getTags();
+```
+
 # getuserbyid
 
 # getUserById(id:[NumberResolvable](#numberresolvable)):Promise<[User](#user)>
@@ -312,6 +328,16 @@ Fetches a DEV user by their id.
 
 ```js
 const user = await getUserById('12345');
+```
+
+# getentityprofilepicture
+
+# getEntityProfilePicture(username: string):Promise<[ProfileImage](#profileimage)>
+
+Fetches the profile image of a user or organization.
+
+```js
+const imageURL = (await getEntityProfilePicture('...')).profileImage;
 ```
 
 # DEVClient
@@ -418,6 +444,19 @@ Fetches your reading list.
 
 ```js
 const myList = await DEVClient.getMyReadingList();
+```
+
+---
+
+inviteToDEV(options:InvitationOptions):Promise<void>
+
+Triggers an invitation to the provided email.
+
+```js
+await DEVClient.inviteToDEV({
+  email: 'example@email.com',
+  name: 'John Doe'
+});
 ```
 
 ---
@@ -1060,6 +1099,34 @@ export interface RawPodcastEpisode extends BasePodcastEpisode {
 }
 ```
 
+# basetag
+
+```ts
+export interface BaseTag {
+  id: number;
+  name: string;
+  points: number;
+}
+```
+
+# tag
+
+```ts
+export interface Tag extends BaseTag {
+  bgColorHex: string;
+  textColorHex: string;
+}
+```
+
+# rawtag
+
+```ts
+export interface RawTag extends BaseTag {
+  bg_color_hex: string;
+  text_color_hex: string;
+}
+```
+
 # usernamebasedoptions
 
 ```ts
@@ -1094,5 +1161,36 @@ export interface RawReadingListItem extends BaseReadingListItem {
   type_of: 'string';
   created_at: string;
   article: RawArticle;
+}
+```
+
+# invitationoptions
+
+```ts
+export interface InvitationOptions {
+  email: `${string}@${string}`;
+  name?: string;
+}
+```
+
+# profileimage
+
+```ts
+export interface ProfileImage {
+  typeOf: 'profile_image';
+  imageOf: 'user' | 'organization';
+  profileImage: string;
+  profileImage90: string;
+}
+```
+
+# rawprofileimage
+
+```ts
+export interface RawProfileImage {
+  type_of: 'profile_image';
+  image_of: 'user' | 'organization';
+  profile_image: string;
+  profile_image_90: string;
 }
 ```

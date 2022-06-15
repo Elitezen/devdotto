@@ -1,4 +1,4 @@
-import { Article, AuthorizationOptions, DEVErrorResponse, FollowedTags, Follower, Listing, NewArticleData, NewListingData, PostOptions, RawNewArticleData, RawNewListingData, ReadingListItem, User } from "../typings/interfaces";
+import { Article, AuthorizationOptions, DEVErrorResponse, FollowedTags, Follower, InvitationOptions, Listing, NewArticleData, NewListingData, PostOptions, RawNewArticleData, RawNewListingData, ReadingListItem, Tag, User } from "../typings/interfaces";
 import { BaseFetchPageOptions, EndPoint, ListingAction, NumberResolvable, Page, SortedPageOptions } from "../typings/types";
 import DEVUtil from "./DEVUtil";
 
@@ -26,7 +26,7 @@ export default class DEVClient {
     return this;
   }
   
-  protected async authenticatedRequest<T extends object | object[]>(
+  protected async authenticatedRequest<T extends object | object[] | void>(
     path:EndPoint, method: 'GET' | 'POST' | 'PUT', camelCaseParse:boolean = true, body?:string
   ):Promise<T> {
     if (this.#apiKey === null) 
@@ -125,6 +125,16 @@ export default class DEVClient {
   async getMyReadingList(options?:BaseFetchPageOptions):Promise<Page<ReadingListItem>> {
     const query = parseParameters(options);
     return await this.authenticatedRequest(`/readinglist${query}`, 'GET', true);
+  }
+
+  /**
+   * Triggers an invitation to the provided email.
+   * @param {InvitationOptions} options 
+   * @returns {Promise<void>} void
+   */
+  async inviteToDEV(options:InvitationOptions):Promise<void> {
+    const body = JSON.stringify(options);
+    return await this.authenticatedRequest<void>('/admin/users', 'POST', false, body);
   }
 
   /**

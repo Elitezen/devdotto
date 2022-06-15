@@ -372,6 +372,22 @@ export interface RawPodcastEpisode extends BasePodcastEpisode {
   podcast: RawPodcast;
 }
 
+export interface BaseTag {
+  id: number;
+  name: string;
+  points: number;
+}
+
+export interface Tag extends BaseTag {
+  bgColorHex: string;
+  textColorHex: string;
+}
+
+export interface RawTag extends BaseTag {
+  bg_color_hex: string;
+  text_color_hex: string;
+}
+
 export interface UsernameBasedOptions {
   username: string;
 }
@@ -395,4 +411,23 @@ export interface RawReadingListItem extends BaseReadingListItem {
 
 export interface SortOptions {
   sort: string;
+}
+
+export interface InvitationOptions {
+  email: `${string}@${string}`;
+  name?: string;
+}
+
+export interface ProfileImage {
+  typeOf: 'profile_image';
+  imageOf: 'user' | 'organization';
+  profileImage: string;
+  profileImage90: string;
+}
+
+export interface RawProfileImage {
+  type_of: 'profile_image';
+  image_of: 'user' | 'organization';
+  profile_image: string;
+  profile_image_90: string;
 }

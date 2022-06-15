@@ -45,7 +45,7 @@ const DEVUtil = {
     return params;
   },
 
-  async request<T extends object | object[]>(
+  async request<T extends object | object[] | void>(
     path:EndPoint, camelCaseParse:boolean = true, params?:PostOptions
   ):Promise<T> {
     const defaultParams:RequestInit = {
